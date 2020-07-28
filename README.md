@@ -17,15 +17,6 @@ import { configure } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 configure({ adapter: new Adapter() });</pre>
 
-##### Show Result Test
-<pre>
-Test Suites: 1 failed, 1 total
-Tests:       0 total
-Snapshots:   0 total
-Time:        1.345s
-Ran all test suites.
-</pre>
-
 ##### Simple Impelement
 Make a folder <code>__ test __</code> in <code>src</code><br>
 move file <code>App.test.js</code> in folder <code> __ test __</code>:
@@ -145,4 +136,13 @@ export const Input = (props) => {
 #### Run
 <pre>
 npm run test
+</pre>
+
+##### Show Result Test
+<pre>
+Test Suites: 1 passed, 1 total
+Tests:       8 passed, 8 total
+Snapshots:   0 total
+Time:        2.819s
+Ran all test suites.
 </pre>
