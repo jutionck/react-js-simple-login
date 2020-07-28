@@ -1,40 +1,70 @@
 import React, {useState} from 'react';
 import './App.css';
-import SimpleCalculator from "./components/SimpleCalculator";
+import '../src/assets/style.css'
+import ResultComponent from "./components/ResultComponent";
+import KeyPadComponent from "./components/KeyPadComponent";
 
 function App() {
 
-    const initialNumberState = {
-        numberOne: 0,
-        numberTwo: 0,
+    const [result, setResult] = useState("")
+
+    const onClick = button => {
+
+        if(button === "="){
+            calculate()
+        }
+
+        else if(button === "C"){
+            reset()
+        }
+        else if(button === "CE"){
+            backspace()
+        }
+
+        else {
+            setResult(result + button)
+        }
     };
 
-    const [number, setNumber] = useState(initialNumberState)
-    const [result, setResult] = useState(0)
 
-    const addSubmit = () => {
-        setResult(Number(number.numberOne)+Number(number.numberTwo))
-    }
+    const calculate = () => {
+        let checkResult = ''
 
-    const subSubmit = () => {
-        setResult(Number(number.numberOne)-Number(number.numberTwo))
-    }
+        if(result.includes('--')){
+            checkResult = result.replace('--','+')
+        }
 
-    const handleChange = (e) => {
-        const { name, value } = e.target;
-        setNumber({ ...number, [name]: value });
-    }
+        else {
+            checkResult = result
+        }
+
+        try {
+            let res = eval(checkResult) || ""  + ""
+            setResult(res)
+        } catch (e) {
+            setResult("error")
+            console.log(e)
+        }
+    };
+
+    const reset = () => {
+        setResult("")
+    };
+
+    const backspace = () => {
+        let del = result.slice(0, -1)
+        setResult(del)
+    };
 
     return (
-        <div data-test="component-app" className="App">
-            <h1 data-test="display">[RJS-A05-C01]Hooks Simple Calculator</h1>
-            <SimpleCalculator
-                numberOne={number.numberOne}
-                numberTwo={number.numberTwo}
-                handleChange={handleChange}
-                addSubmit={addSubmit}
-                subSubmit={subSubmit}
-                result={result}/>
+        <div className="App">
+            <h1 data-test="display">[RJS-A05-L01]Hooks Calculator</h1>
+            <div className="calculator-body">
+
+                <ResultComponent result={result}/>
+
+                <KeyPadComponent onClick={onClick}/>
+            </div>
         </div>
     );
 }
