@@ -17,11 +17,6 @@ import { configure } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 configure({ adapter: new Adapter() });</pre>
 
-#### Run
-<pre>
-npm run test
-</pre>
-
 ##### Show Result Test
 <pre>
 Test Suites: 1 failed, 1 total
@@ -145,4 +140,9 @@ export const Input = (props) => {
         &lt;input onChange={handleChange} value={props.value} /&gt;
     )
 }
+</pre>
+
+#### Run
+<pre>
+npm run test
 </pre>
