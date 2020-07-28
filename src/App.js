@@ -1,21 +1,34 @@
 import React, {Component} from 'react';
 import './App.css';
+import {Title} from "./components/Title";
+import {Input} from "./components/Input";
 
 class App extends Component {
 
     constructor(props) {
         super(props);
         this.state = {
-            counter: 0
+            counter: 0,
+            name: "",
+            text: "",
+            inputValue:""
         }
     }
 
+    handleChange = (value) =>{
+        this.setState({
+            inputValue: value,
+        });
+    };
 
     render() {
     return (
-        <div>
-          <h1 data-test="counter-display">The counter is currently {this.state.counter}</h1>
-          <button
+        <div data-test="component-app">
+            <h1 data-test="counter-display">The counter is currently {this.state.counter}</h1>
+            <Title text={this.state.text}/>
+
+            <Input handleChange={this.handleChange} value={this.state.inputValue} />
+            <button
               data-test="increment-button"
               onClick={() => this.setState({counter: this.state.counter + 1})}
           >
