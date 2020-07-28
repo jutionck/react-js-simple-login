@@ -1,8 +1,7 @@
 import React from "react";
 import { shallow } from "enzyme";
 import App from "../App";
-import {Title} from "../components/Title";
-import {Input} from "../components/Input";
+import SimpleCalculator from "../components/SimpleCalculator";
 
 const setup = (props = {}, state = null) => {
   const wrapper = shallow(<App {...props} />);
@@ -30,54 +29,30 @@ describe("<App />", () => {
     expect(appComponnet.length).toEqual(1)
   })
 
-  // cek state yang di buat sesuai apa tidak
-  it('cek state name is string', function () {
+  it('should component is called at leact once', function () {
     const wrapper = setup()
-    const initialNameState = wrapper.state('name')
-    expect(initialNameState).toMatch("")
-
+    const appComponnet = findByAttr(wrapper, 'display')
+    expect(appComponnet.length).toEqual(1)
   })
 
-  // simulasi event
-  it('should 1 counter', function () {
-    const counter = 9
-    const wrapper = setup(null, {counter})
-
-    findByAttr(wrapper, 'increment-button').simulate('click')
-
-    const display = findByAttr(wrapper, 'counter-display')
-    expect(display.text()).toContain(counter + 1)
-  })
-
-  describe("<Title/>", ()=> {
+  describe("<SimpleCalculator/>", ()=> {
     it('should', function () {
-      const wrapper = shallow(<Title/>);
-      expect(wrapper.find('h1').length).toBe(1)
-    })
-
-    it('props', () => {
-      const wrapper = shallow(<Title text={'React'} />)
-      expect(wrapper.text()).toBe('Hello React')
+      const wrapper = shallow(<SimpleCalculator/>);
+      expect(wrapper.find('h2').length).toBe(1)
     })
   })
 
 
-  describe("<Input/>", () => {
-    it('should be 1 input element', function () {
-      const wrapper = shallow(<Input />);
-      expect(wrapper.find('input').length).toBe(1)
+  describe("<SimpleCalculator/>", () => {
+    it('should be 2 input element', function () {
+      const wrapper = shallow(<SimpleCalculator />);
+      expect(wrapper.find('input').length).toBe(2)
     })
 
-    it('change handle input', function () {
-      const handleChangeSpy = jest.fn()
-      const wrapper = shallow(<Input handleChange={handleChangeSpy}/>)
-
-      const event = { target: {value: 'aaa'} }
-      wrapper.find('input').simulate('change', event)
-      expect(handleChangeSpy).toHaveBeenCalledWith('aaa')
+    it('should be 2 button element', function () {
+      const wrapper = shallow(<SimpleCalculator />);
+      expect(wrapper.find('button').length).toBe(2)
     })
-
-
   })
 
 });

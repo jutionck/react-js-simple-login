@@ -1,44 +1,42 @@
-import React, {Component} from 'react';
+import React, {useState} from 'react';
 import './App.css';
-import {Title} from "./components/Title";
-import {Input} from "./components/Input";
+import SimpleCalculator from "./components/SimpleCalculator";
 
-class App extends Component {
+function App() {
 
-    constructor(props) {
-        super(props);
-        this.state = {
-            counter: 0,
-            name: "",
-            text: "",
-            inputValue:""
-        }
-    }
-
-    handleChange = (value) =>{
-        this.setState({
-            inputValue: value,
-        });
+    const initialNumberState = {
+        numberOne: 0,
+        numberTwo: 0,
     };
 
-    render() {
-    return (
-        <div data-test="component-app">
-            <h1 data-test="counter-display">The counter is currently {this.state.counter}</h1>
-            <Title text={this.state.text}/>
+    const [number, setNumber] = useState(initialNumberState)
+    const [result, setResult] = useState(0)
 
-            <Input handleChange={this.handleChange} value={this.state.inputValue} />
-            <button
-              data-test="increment-button"
-              onClick={() => this.setState({counter: this.state.counter + 1})}
-          >
-            "Increment counter"
-          </button>
-          <div className='App'> Lorem ipsumm ...</div>
+    const addSubmit = () => {
+        setResult(Number(number.numberOne)+Number(number.numberTwo))
+    }
+
+    const subSubmit = () => {
+        setResult(Number(number.numberOne)-Number(number.numberTwo))
+    }
+
+    const handleChange = (e) => {
+        const { name, value } = e.target;
+        setNumber({ ...number, [name]: value });
+    }
+
+    return (
+        <div data-test="component-app" className="App">
+            <h1 data-test="display">[RJS-A05-C01]Hooks Simple Calculator</h1>
+            <SimpleCalculator
+                numberOne={number.numberOne}
+                numberTwo={number.numberTwo}
+                handleChange={handleChange}
+                addSubmit={addSubmit}
+                subSubmit={subSubmit}
+                result={result}/>
         </div>
     );
-  }
-
 }
 
 export default App;
